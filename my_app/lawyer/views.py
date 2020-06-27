@@ -3,7 +3,7 @@ from flask import request
 from my_app.user.model.models import User, Client, Lawyer, Case, Document, Message
 
 #vistas abogado
-@app.route("/lawyer/register", methods=['GET', 'POST'])
+@app.route("/lawyer/register", methods=['GET', 'POST', 'PUT', 'DELETE' ])
 @app.route("/lawyer/register/<int:id>", methods=['GET'])
 def abogado_registro(id=None):
 #post lawyer
@@ -64,7 +64,7 @@ def abogado_registro(id=None):
 #get lawyer
    if request.method == "GET":
       if id is not None:
-         lawyer = Lawyer.query.get(id)
+         lawyer = Lawyer.query.get(id) 
          if lawyer:
                return jsonify(lawyer.serialize()), 200
          else:
@@ -73,167 +73,9 @@ def abogado_registro(id=None):
          lawyer = Lawyer.query.all()
          lawyer = list(map(lambda lawyer: lawyer.serialize(), lawyer))
          return jsonify(lawyer), 200
+#put lawyer
+   if request.method == "PUT":
 
-@app.route("/lawyer/profile/lawyer", methods=['GET'])
-@app.route("/lawyer/profile/lawyer/<int:id>", methods=['GET'])
-def abogado_perfil_abogado(id=None):
-#get lawyer
-   if request.method == "GET":
-      if id is not None:
-         lawyer = Lawyer.query.get(id)
-         if lawyer:
-               return jsonify(lawyer.serialize()), 200
-         else:
-               return jsonify({"msg":"lawyer not found"}), 404
-      else:
-         lawyer = Lawyer.query.all()
-         lawyer = list(map(lambda lawyer: lawyer.serialize(), lawyer))
-         return jsonify(lawyer), 200
+#delete lawyer
+   if request.method == "DELETE":
 
-@app.route("/lawyer/profile/user", methods=['GET'])
-@app.route("/lawyer/profile/user/<int:id>", methods=['GET'])
-def abogado_perfil_user(id=None):
-#get user
-   if request.method == "GET":
-      if id is not None:
-         user = User.query.get(id)
-         if user:
-               return jsonify(user.serialize()), 200
-         else:
-               return jsonify({"msg":"user not found"}), 404
-      else:
-         user = User.query.all()
-         user = list(map(lambda user: user.serialize(), user))
-         return jsonify(user), 200
-
-@app.route("/lawyer/profile/client", methods=['GET'])
-@app.route("/lawyer/profile/client/<int:id>", methods=['GET'])
-def abogado_perfil_cliente(id=None):
-#get client
-   if request.method == "GET":
-      if id is not None:
-         client = Client.query.get(id)
-         if client:
-               return jsonify(client.serialize()), 200
-         else:
-               return jsonify({"msg":"client not found"}), 404
-      else:
-         client = Client.query.all()
-         client = list(map(lambda client: client.serialize(), client))
-         return jsonify(client), 200
-
-@app.route("/lawyer/profile/case", methods=['GET'])
-@app.route("/lawyer/profile/case/<int:id>", methods=['GET'])
-def abogado_perfil_caso(id=None):
-#get case
-   if request.method == "GET":
-      if id is not None:
-         case = Case.query.get(id)
-         if case:
-               return jsonify(case.serialize()), 200
-         else:
-               return jsonify({"msg":"case not found"}), 404
-      else:
-         case = Case.query.all()
-         case = list(map(lambda case: case.serialize(), case))
-         return jsonify(case), 200
-         
-@app.route("/lawyer/profile/document", methods=['GET'])
-@app.route("/lawyer/profile/document/<int:id>", methods=['GET'])
-def abogado_perfil_documento(id=None):
-   if request.method == "GET":
-      if id is not None:
-         document = Document.query.get(id)
-         if document:
-               return jsonify(document.serialize()), 200
-         else:
-               return jsonify({"msg":"document not found"}), 404
-      else:
-         document = Document.query.all()
-         document = list(map(lambda document: document.serialize(), document))
-         return jsonify(document), 200
-   
-@app.route("/lawyer/profile/cases/case", methods=['GET'])
-@app.route("/lawyer/profile/cases/<int:id>", methods=['GET'])
-def abogado_consulta_case(id=None):
-#get case
-   if request.method == "GET":
-      if id is not None:
-         case = Case.query.get(id)
-         if case:
-               return jsonify(case.serialize()), 200
-         else:
-               return jsonify({"msg":"case not found"}), 404
-      else:
-         case = Case.query.all()
-         case = list(map(lambda case: case.serialize(), case))
-         return jsonify(case), 200
-
-   
-@app.route("/lawyer/profile/cases/message", methods=['GET'])
-@app.route("/lawyer/profile/cases/<int:id>", methods=['GET'])
-def abogado_consulta_message(id=None):
-#get message
-   if request.method == "GET":
-      if id is not None:
-         message = Message.query.get(id)
-         if message:
-               return jsonify(message.serialize()), 200
-         else:
-               return jsonify({"msg":"message not found"}), 404
-      else:
-         message = Message.query.all()
-         message = list(map(lambda message: message.serialize(), message))
-         return jsonify(message), 200
-
-@app.route("/lawyer/profile/query", methods=['GET', 'POST'])
-@app.route("/lawyer/profile/query/<int:id>", methods=['GET'])
-def abogado_caso_chat(id=None):
-#post messages   
-   if request.method == "POST":
-      messages_date = request.json.get('messages_date', None)
-      messages_content = request.json.get('messages_content', None)
-
-      if not messages_date:
-         return jsonify({"msg":"date is required"}), 422
-
-      if not messages_content:
-         return jsonify({"msg":"message ir required"}), 422
-
-      message = Message()
-      message.messages_date = messages_date
-      message.messages_content = messages_content
-
-      db.session.add(message)
-      db.session.commit()
-
-      return jsonify(message.serialize()), 201
-#get message
-   if request.method == "GET":
-      if id is not None:
-         message = Message.query.get(id)
-         if message:
-               return jsonify(message.serialize()), 200
-         else:
-               return jsonify({"msg":"message not found"}), 404
-      else:
-         message = Message.query.all()
-         message = list(map(lambda message: message.serialize(), message))
-         return jsonify(message), 200
-
-@app.route("/lawyer/profile/query/user", methods=['GET', 'POST'])
-@app.route("/lawyer/profile/query/user/<int:id>", methods=['GET'])
-def abogado_caso_user(id=None):
-
-#get user
-   if request.method == "GET":
-      if id is not None:
-         user = User.query.get(id)
-         if user:
-               return jsonify(user.serialize()), 200
-         else:
-               return jsonify({"msg":"user not found"}), 404
-      else:
-         user = User.query.all()
-         user = list(map(lambda user: user.serialize(), user))
-         return jsonify(user), 200
