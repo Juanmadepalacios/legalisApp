@@ -22,7 +22,7 @@ CORS(app, supports_credentials=True)
 
 
 #importar el modelo
-import my_app.user.model.models
+import my_app.model.models
 
 #db.create_all()
 

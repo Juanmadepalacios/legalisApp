@@ -1,6 +1,6 @@
 from my_app import app, db, jsonify
 from flask import request
-from my_app.user.model.models import User, Client, Lawyer, Case, Document, Message
+from my_app.model.models import User, Client, Lawyer, Case, Document, Message
 
 
 #Vistas usuario
