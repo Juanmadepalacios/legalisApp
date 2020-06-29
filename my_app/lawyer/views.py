@@ -2,7 +2,7 @@ from my_app import app, db, jsonify
 from flask import request
 from my_app.model.models import User, Client, Lawyer, Case, Document, Message
 
-#vistas abogado
+#viewes Lawyer
 @app.route("/lawyer", methods=['GET', 'POST'])
 @app.route("/lawyer/<int:id>", methods=['GET', 'PUT', 'DELETE'])
 def lawyers(id=None):

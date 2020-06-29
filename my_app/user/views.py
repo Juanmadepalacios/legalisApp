@@ -3,7 +3,7 @@ from flask import request
 from my_app.model.models import User, Client, Lawyer, Case, Document, Message
 
 
-#Vistas usuario
+#Views User
 @app.route('/')
 def user():
    return "HOLA MUNDO"
