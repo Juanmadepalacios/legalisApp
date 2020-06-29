@@ -77,7 +77,7 @@ def users(id=None):
       return jsonify(user.serialize()), 200
 
       #delete user
-      if request.method == "DELETE":
+   if request.method == "DELETE":
 
       user = User.query.get(id)
 
