@@ -19,7 +19,7 @@ def lawyers(id=None):
          lawyer = list(map(lambda lawyer: lawyer.serialize(), lawyer))
          return jsonify(lawyer), 200
 
-#post lawyer
+   #post lawyer
    if request.method == "POST":
       lawyers_name = request.json.get('lawyers_name', None)
       lawyers_password = request.json.get('lawyers_password', None)
@@ -78,7 +78,7 @@ def lawyers(id=None):
 
       return jsonify(lawyer.serialize()), 201
 
-#put lawyer
+   #put lawyer
    if request.method == "PUT":
       lawyers_name = request.json.get('lawyers_name', None)
       lawyers_password = request.json.get('lawyers_password', None)
@@ -136,7 +136,7 @@ def lawyers(id=None):
 
       return jsonify(lawyer.serialize()), 200
          
-#delete lawyer
+   #delete lawyer
    if request.method == "DELETE":
 
       lawyer = Lawyer.query.get(id)
