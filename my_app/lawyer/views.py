@@ -139,7 +139,7 @@ def lawyers(id=None):
 #delete lawyer
    if request.method == "DELETE":
 
-      lawyer = Lawyer.quert.get(id)
+      lawyer = Lawyer.query.get(id)
 
       if not lawyer:
          return jsonify({"msg":"Lawyer not found"}), 404
