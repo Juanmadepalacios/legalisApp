@@ -42,6 +42,9 @@ def lawyers(id=None):
       if not lawyers_rut:
          return jsonify({"msg":"rut is required"}), 422
 
+      if not lawyers_phone:
+         return jsonify({"msg":"phone is required"}), 422
+
       if not lawyers_field:
          return jsonify({"msg":"field is required"}), 422
 
@@ -77,17 +80,17 @@ def lawyers(id=None):
 
 #put lawyer
    if request.method == "PUT":
-      lawyers_name = request.json.get('name', None)
-      lawyers_password = request.json.get('password', None)
-      lawyers_email = request.json.get('email', None)
-      lawyers_rut = request.json.get('rut', None)
-      lawyers_phone = request.json.get('phone', None)
-      lawyers_field = request.json.get('field', None)
-      lawyers_title = request.json.get('title', None)
-      lawyers_file_speciality = request.json.get('file speciality', None)
-      lawyers_bank = request.json.get('bank', None)
-      lawyers_account = request.json.get('account', None)
-      lawyers_bank_number = request.json.get('bank number', None)
+      lawyers_name = request.json.get('lawyers_name', None)
+      lawyers_password = request.json.get('lawyers_password', None)
+      lawyers_email = request.json.get('lawyers_email', None)
+      lawyers_rut = request.json.get('lawyers_rut', None)
+      lawyers_phone = request.json.get('lawyers_phone', None)
+      lawyers_field = request.json.get('lawyers_field', None)
+      lawyers_title = request.json.get('lawyers_title', None)
+      lawyers_file_speciality = request.json.get('lawyers_file speciality', None)
+      lawyers_bank = request.json.get('lawyers_bank', None)
+      lawyers_account = request.json.get('lawyers_account', None)
+      lawyers_bank_number = request.json.get('lawyers_bank_number', None)
 
       if not lawyers_name:
          return jsonify({"msg":"name is required"}), 422
