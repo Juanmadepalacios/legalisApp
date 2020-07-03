@@ -9,7 +9,6 @@ def lawyers(lawyers_rut=None):
    #get lawyer
    if request.method == "GET":
       if lawyers_rut is not None:
-         
          lawyer = Lawyer.query.filter( Lawyer.lawyers_rut== lawyers_rut).first()
          if lawyer:
                return jsonify(lawyer.serialize()), 200
