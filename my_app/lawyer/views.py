@@ -4,16 +4,17 @@ from my_app.model.models import User, Client, Lawyer, Case, Document, Message
 
 #viewes Lawyer
 @app.route("/lawyer", methods=['GET', 'POST'])
-@app.route("/lawyer/<int:id>", methods=['GET', 'PUT', 'DELETE'])
-def lawyers(id=None):
+@app.route("/lawyer/<string:lawyers_rut>", methods=['GET', 'PUT', 'DELETE'])
+def lawyers(lawyers_rut=None):
    #get lawyer
    if request.method == "GET":
-      if id is not None:
-         lawyer = Lawyer.query.get(id) 
+      if lawyers_rut is not None:
+         
+         lawyer = Lawyer.query.filter( Lawyer.lawyers_rut== lawyers_rut).first()
          if lawyer:
                return jsonify(lawyer.serialize()), 200
          else:
-               return jsonify({"msg":"lawyer not found"}), 404
+               return jsonify({"msg":"lawyer not found", "lawyer":lawyer}), 404
       else:
          lawyer = Lawyer.query.all()
          lawyer = list(map(lambda lawyer: lawyer.serialize(), lawyer))
@@ -148,3 +149,4 @@ def lawyers(id=None):
       db.session.commit()
 
       return jsonify({"msg": "Lawyer deleted"}), 200
+
