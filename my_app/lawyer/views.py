@@ -97,7 +97,8 @@ def lawyers(lawyers_rut=None):
   #delete lawyer
   if request.method == "DELETE":
 
-     lawyer = Lawyer.query.get(id)
+     lawyer = Lawyer.query.filter( Lawyer.lawyers_rut == lawyers_rut).first()
+      
 
      if not lawyer:
         return jsonify({"msg":"Lawyer not found"}), 404
