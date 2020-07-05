@@ -29,4 +29,5 @@ import my_app.model.models
 #importar las vistas
 import my_app.user.views
 import my_app.lawyer.views
+import my_app.client.views
 
