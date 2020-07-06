@@ -45,7 +45,7 @@ class User(db.Model):
   users_id = db.Column(db.Integer, primary_key=True)
   users_name = db.Column(db.String(30), unique=False, nullable=False)
   users_issue_subject = db.Column(db.String(30), unique=False, nullable=False)
-  users_issue_description = db.Column(db.Text(3000), unique=False, nullable =False)
+  users_issue_description = db.Column(db.Text(300), unique=False, nullable =False)
   messages = db.relationship('Message', backref='users') 
   lawyer_id = db.Column(db.Integer, db.ForeignKey('lawyers.lawyers_id'))
   
