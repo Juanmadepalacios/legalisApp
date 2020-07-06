@@ -41,3 +41,5 @@ def cases(id=None):
     db.session.commit()
 
     return jsonify(case.serialize()), 201
+
+  #ADD DELETE ROW USER IN THIS POINT 
