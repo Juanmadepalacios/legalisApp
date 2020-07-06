@@ -92,7 +92,7 @@ def lawyers(lawyers_rut=None):
            print(incomingData[item2], item2)
            updateData.update({item2: incomingData[item2]})
            db.session.commit()
-     return "lawyer is updated"
+     return "Lawyer is updated"
         
   #delete lawyer
   if request.method == "DELETE":
