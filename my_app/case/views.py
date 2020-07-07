@@ -43,7 +43,7 @@ def cases(cases_id=None):
 
     return jsonify(case.serialize()), 201
 
-    if users_id is not None:
+    if cases_id is not None:
       user = User.query.filter_by(id).delete()
 
     db.session.delete(user)

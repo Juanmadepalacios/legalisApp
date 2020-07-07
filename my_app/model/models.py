@@ -36,6 +36,7 @@ class Client(db.Model):
           "clients_nationality": self.clients_nationality,
           "clients_civil_status": self.clients_civil_status,
           "clients_avatar": self.clients_avatar
+          
       }
 
   
@@ -48,6 +49,7 @@ class User(db.Model):
   users_issue_description = db.Column(db.Text(300), unique=False, nullable =False)
   messages = db.relationship('Message', backref='users') 
   lawyer_id = db.Column(db.Integer, db.ForeignKey('lawyers.lawyers_id'))
+  user_case = db.relationship('Case', backref='case_author', lazy=True)
   
 
   def __repr__(self):
@@ -61,7 +63,7 @@ class User(db.Model):
           "users_issue_description": self.users_issue_description
       }
 
-class Rol(db.Model):
+class Role(db.Model):
   __tablename__='rols'
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(10), unique=False, nullable = False)
@@ -136,7 +138,11 @@ class Case(db.Model):
           "cases_id": self.cases_id,
           "cases_matter": self.cases_matter,
           "cases_date": self.cases_date,
-          "cases_description": self.cases_description
+          "cases_description": self.cases_description,
+          "users_id":self.users_author.id,
+          "users_name":self.users_author.name,
+          "users_issue_subject":self.users_author.issue_subject,
+          "users_issue_description":self.users_author.issue_description
       }
 
 
