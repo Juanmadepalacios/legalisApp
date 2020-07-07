@@ -3,20 +3,21 @@ from flask import request
 from my_app.model.models import User, Client, Lawyer, Case, Document, Message
 
 @app.route("/case", methods=['GET', 'POST'])
-@app.route("/case/<int:id>", methods=['GET', 'PUT', 'DELETE'])
-def cases(id=None):
+@app.route("/case/<int:cases_id>", methods=['GET', 'PUT', 'DELETE'])
+def cases(cases_id=None):
   #get cases
   if request.method == "GET":
-    if id is not None:
-        case = Case.query.get(id)
-        if cases:
-              return jsonify(cases.serialize()), 200
+     if cases_id is not None:
+        case = Case.query.filter( Case.cases_id == cases_id).first()
+        if case:
+              return jsonify(case.serialize()), 200
         else:
-              return jsonify({"msg":"cases not found"}), 404
+              return jsonify({"msg":"case not found"}), 404
      else:
-        cases = Case.query.all()
-        cases = list(map(lambda cases: cases.serialize(), cases))
-        return jsonify(cases), 200
+        case = Case.query.all()
+        case = list(map(lambda case: case.serialize(), case))
+        return jsonify(case), 200
+
   #post cases
   if request.method == "POST":
     cases_matter = request.json.get('cases_matter', None)
@@ -42,4 +43,37 @@ def cases(id=None):
 
     return jsonify(case.serialize()), 201
 
-  #ADD DELETE ROW USER IN THIS POINT 
+    if users_id is not None:
+      user = User.query.filter_by(id).delete()
+
+    db.session.delete(user)
+    db.session.commit()
+
+  #put cases
+  if request.method == "PUT":
+    incomingData = request.get_json()
+    updateData = Case.query.filter_by(cases_id=cases_id)
+
+    listOfNotEmptyStrings = []
+    for item in incomingData:
+      if incomingData[item] != "":
+          listOfNotEmptyStrings.append(item)
+
+    for item2 in listOfNotEmptyStrings:
+          print(incomingData[item2], item2)
+          updateData.update({item2: incomingData[item2]})
+          db.session.commit()
+    return "Case is updated"
+
+  #delete cases
+  if request.method == "DELETE":
+
+     case = Case.query.filter( Case.cases_id == cases_id).first()
+      
+  if not case:
+    return jsonify({"msg":"Case not found"}), 404
+
+  db.session.delete(case)
+  db.session.commit()
+
+  return jsonify({"msg": "Case deleted"}), 200

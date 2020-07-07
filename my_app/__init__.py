@@ -28,4 +28,5 @@ import my_app.model.models
 import my_app.user.views
 import my_app.lawyer.views
 import my_app.client.views
+import my_app.case.views
 

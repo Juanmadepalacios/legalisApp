@@ -93,9 +93,6 @@ class Lawyer(db.Model):
   lawyers_bank_number = db.Column(db.Integer, unique=True, nullable=False)
   lawyers = db.relationship('User', backref='lawyers')
   
-  #tipo de cuenta
-  #Banco
-  #numero de cuenta
   def __repr__(self):
       return '<Lawyer %r>' % self.lawyers_id, self.lawyers_name, self.lawyers_password, self.lawyers_email, self.lawyers_rut, self.lawyers_phone, self.lawyers_field, self.lawyers_title, self.lawyers_file_speciality, self.lawyers_bank, self.lawyers_account, self.lawyers_bank_number
   
